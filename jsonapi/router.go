@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style license that can be
 // found in the LICENSE file.
 // SPDX-License-Identifier: MIT
-package json_api
+package jsonapi
 
 type Router struct {
 	Locator  Locator    `json:"locator"`  // locator (ipv6 prefix)
