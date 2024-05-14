@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: MIT
 package jsonapi
 
-type MessageWithError struct {
-	Message string
-	Error   error
-}
+import "github.com/gofrs/uuid"
+
+type RuleMap map[uuid.UUID]Rule
