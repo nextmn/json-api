@@ -5,7 +5,7 @@
 package jsonapi
 
 type Rule struct {
-	Enable bool
-	Match  Match
-	Action Action
+	Enabled bool
+	Match   Match
+	Action  Action
 }
