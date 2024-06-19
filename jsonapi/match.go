@@ -4,6 +4,10 @@
 // SPDX-License-Identifier: MIT
 package jsonapi
 
-import "github.com/gofrs/uuid"
+import "net/netip"
 
-type RouterMap map[uuid.UUID]Router
+type Match struct {
+	SrcIpPrefix netip.Prefix
+	DstIpPrefix netip.Prefix
+	GtpTeid     uint32
+}

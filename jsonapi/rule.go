@@ -4,6 +4,8 @@
 // SPDX-License-Identifier: MIT
 package jsonapi
 
-import "github.com/gofrs/uuid"
-
-type RouterMap map[uuid.UUID]Router
+type Rule struct {
+	Enabled bool
+	Match   Match
+	Action  Action
+}
