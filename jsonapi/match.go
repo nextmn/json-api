@@ -7,5 +7,6 @@ package jsonapi
 import "net/netip"
 
 type Match struct {
-	UEIpPrefix netip.Prefix
+	UEIpPrefix  netip.Prefix `json:"ue-ip-prefix,omitempty"`
+	GNBIpPrefix netip.Prefix `json:"gnb-ip-prefix,omitempty"`
 }
