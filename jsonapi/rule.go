@@ -6,6 +6,7 @@ package jsonapi
 
 type Rule struct {
 	Enabled bool
+	Type    string // uplink or downlink
 	Match   Match
 	Action  Action
 }
