@@ -9,4 +9,5 @@ import "net/netip"
 type Match struct {
 	UEIpPrefix  netip.Prefix `json:"ue-ip-prefix,omitempty"`
 	GNBIpPrefix netip.Prefix `json:"gnb-ip-prefix,omitempty"`
+	Teid        uint32       `json:"teid,omitempty"`
 }
