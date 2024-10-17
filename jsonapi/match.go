@@ -5,6 +5,6 @@
 package jsonapi
 
 type Match struct {
-	Header  GtpHeader `json:"gtp,omitempty"`
-	Payload Payload   `json:"payload,omitempty"` // if empty, the rule is considered "default"
+	Header  *GtpHeader `json:"gtp,omitempty"`
+	Payload *Payload   `json:"payload,omitempty"` // if empty, the rule is considered "default"
 }

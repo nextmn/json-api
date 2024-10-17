@@ -7,7 +7,7 @@ package jsonapi
 import "net/netip"
 
 type GtpHeader struct {
-	OuterIpSrc netip.Addr `json:"outer-ip-src"` // i.e. gNB ip
-	Teid       uint32     `json:"teid"`
-	InnerIpSrc netip.Addr `json:"inner-ip-src,omitempty"` // i.e. UE ip; only useful for uplink when multiple PDU Sessions are aggregated on a single TEID
+	OuterIpSrc netip.Addr  `json:"outer-ip-src"` // i.e. gNB ip
+	Teid       uint32      `json:"teid"`
+	InnerIpSrc *netip.Addr `json:"inner-ip-src,omitempty"` // i.e. UE ip; only useful for uplink when multiple PDU Sessions are aggregated on a single TEID
 }
