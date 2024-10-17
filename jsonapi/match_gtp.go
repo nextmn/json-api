@@ -6,8 +6,7 @@ package jsonapi
 
 import "net/netip"
 
-type Match struct {
-	Gtp MatchGtp   `json:"gtp,omitempty"`
-	Src netip.Addr `json:"source-ip"`
-	Dst netip.Addr `json:"destination-ip"`
+type MatchGtp struct {
+	Src  netip.Addr `json:"source-ip"`
+	Teid uint32     `json:"teid"`
 }
