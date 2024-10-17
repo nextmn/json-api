@@ -4,10 +4,7 @@
 // SPDX-License-Identifier: MIT
 package jsonapi
 
-import "net/netip"
-
 type Match struct {
-	Gtp MatchGtp   `json:"gtp,omitempty"`
-	Src netip.Addr `json:"source-ip"`
-	Dst netip.Addr `json:"destination-ip"`
+	Header  GtpHeader `json:"gtp,omitempty"`
+	Payload Payload   `json:"payload,omitempty"` // if empty, the rule is considered "default"
 }
