@@ -4,7 +4,10 @@
 // SPDX-License-Identifier: MIT
 package jsonapi
 
-import "fmt"
+import (
+	"fmt"
+	"net"
+)
 
 type SRH []*Segment
 
@@ -21,4 +24,12 @@ func NewSRH(segments []string) (*SRH, error) {
 		}
 	}
 	return &srh, nil
+}
+
+func (srh SRH) AsSlice() []net.IP {
+	r := make([]net.IP, len(srh))
+	for i, seg := range srh {
+		r[i] = seg.AsSlice()
+	}
+	return r
 }

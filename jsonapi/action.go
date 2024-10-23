@@ -5,6 +5,5 @@
 package jsonapi
 
 type Action struct {
-	NextHop NextHop
-	SRH     SRH
+	SRH SRH `json:"srh"`
 }
