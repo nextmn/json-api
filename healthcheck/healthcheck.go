@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -17,7 +18,7 @@ import (
 
 // Healthcheck allows to check status of the node
 type Healthcheck struct {
-	uri       string
+	url       url.URL
 	userAgent string
 }
 
@@ -27,9 +28,9 @@ type Status struct {
 }
 
 // Create a new Healthcheck
-func NewHealthcheck(uri string, userAgent string) *Healthcheck {
+func NewHealthcheck(url url.URL, userAgent string) *Healthcheck {
 	return &Healthcheck{
-		uri:       uri,
+		url:       url,
 		userAgent: userAgent,
 	}
 }
@@ -39,7 +40,7 @@ func (h *Healthcheck) Run(ctx context.Context) error {
 	client := http.Client{
 		Timeout: 100 * time.Millisecond,
 	}
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, h.uri+"/status", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, h.url.String(), nil)
 	if err != nil {
 		logrus.WithError(err).Error("Error while creating http get request")
 		return err
@@ -49,23 +50,23 @@ func (h *Healthcheck) Run(ctx context.Context) error {
 	req.Header.Set("Accept-Charset", "utf-8")
 	resp, err := client.Do(req)
 	if err != nil {
-		logrus.WithFields(logrus.Fields{"remote-server": h.uri}).WithError(err).Info("No http response")
+		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("No http response")
 		return err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		logrus.WithFields(logrus.Fields{"remote-server": h.uri}).WithError(err).Info("Http response is not 200 OK")
+		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("Http response is not 200 OK")
 		return err
 	}
 	decoder := json.NewDecoder(resp.Body)
 	var status Status
 	if err := decoder.Decode(&status); err != nil {
-		logrus.WithFields(logrus.Fields{"remote-server": h.uri}).WithError(err).Info("Could not decode json response")
+		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("Could not decode json response")
 		return err
 	}
 	if !status.Ready {
 		err := fmt.Errorf("Server is not ready")
-		logrus.WithFields(logrus.Fields{"remote-server": h.uri}).WithError(err).Info("Server is not ready")
+		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("Server is not ready")
 		return err
 	}
 	return nil
