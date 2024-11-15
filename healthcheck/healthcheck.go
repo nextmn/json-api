@@ -18,7 +18,7 @@ import (
 
 // Healthcheck allows to check status of the node
 type Healthcheck struct {
-	url       url.URL
+	url       string
 	userAgent string
 }
 
@@ -30,7 +30,7 @@ type Status struct {
 // Create a new Healthcheck
 func NewHealthcheck(url url.URL, userAgent string) *Healthcheck {
 	return &Healthcheck{
-		url:       url,
+		url:       url.String(),
 		userAgent: userAgent,
 	}
 }
@@ -40,7 +40,7 @@ func (h *Healthcheck) Run(ctx context.Context) error {
 	client := http.Client{
 		Timeout: 100 * time.Millisecond,
 	}
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, h.url.String(), nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, h.url, nil)
 	if err != nil {
 		logrus.WithError(err).Error("Error while creating http get request")
 		return err
