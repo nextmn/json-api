@@ -3,8 +3,5 @@
 // found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-package jsonapi
-
-type Message struct {
-	Message string
-}
+// Package n4tosrv6 allow to translate PFCP Rules into SRv6.
+package n4tosrv6

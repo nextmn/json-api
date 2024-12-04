@@ -3,8 +3,5 @@
 // found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-package jsonapi
-
-type Message struct {
-	Message string
-}
+// Package n1n2 allow to simulate N1/N2 interface using a REST API.
+package n1n2
