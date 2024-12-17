@@ -6,8 +6,6 @@
 package n1n2
 
 import (
-	"net/netip"
-
 	"github.com/nextmn/json-api/jsonapi"
 )
 
@@ -17,6 +15,5 @@ type N2PduSessionReqMsg struct {
 	UeInfo PduSessionEstabAcceptMsg `json:"ue-info"` // information to forward to the UE
 
 	// Uplink FTEID: the gNB will establish an Uplink GTP Tunnel using the following
-	Upf        netip.Addr `json:"upf"`
-	UplinkTeid uint32     `json:"uplink-teid"`
+	UplinkFteid jsonapi.Fteid `json:"uplink-fteid"`
 }

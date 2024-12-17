@@ -16,6 +16,9 @@ type ControlURI struct {
 }
 
 func (u *ControlURI) UnmarshalText(text []byte) error {
+	if len(text) == 0 {
+		return fmt.Errorf("Control URI should not be empty.")
+	}
 	if text[len(text)-1] == '/' {
 		return fmt.Errorf("Control URI should not contains trailing slash.")
 	}
