@@ -5,13 +5,14 @@
 
 package n1n2
 
-import "net/netip"
+import (
+	"github.com/nextmn/json-api/jsonapi"
+)
 
 // N2PduSessionRespMsg is sent to the CP by the gNB as a response of N2PduSessionReqMsg.
 type N2PduSessionRespMsg struct {
 	UeInfo PduSessionEstabAcceptMsg `json:"ue-info"` // used to identify the PDU Session
 
 	// Downlink FTEID: the CP will use this to configure a downlink GTP Tunnel in Upf-i
-	DownlinkTeid uint32     `json:"downlink-teid"`
-	Gnb          netip.Addr `json:"gnb"`
+	DownlinkFteid jsonapi.Fteid `json:"downlink-fteid"`
 }
