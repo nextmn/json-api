@@ -5,6 +5,19 @@
 
 package n1n2
 
+import (
+	"net/netip"
+
+	"github.com/nextmn/json-api/jsonapi"
+)
+
 // HandoverRequest is send by the CP to the target gNB during the handover preparation phase
 type HandoverRequest struct {
+	UeCtrl    jsonapi.ControlURI `json:"ue-ctrl"`
+	Cp        jsonapi.ControlURI `json:"ue-ctrl"`
+	TargetgNB jsonapi.ControlURI `json:"ue-ctrl"`
+	Sessions  []struct {
+		Addr        netip.Addr    `json:"ue-addr"`
+		UplinkFteid jsonapi.Fteid `json:"uplink-fteid"`
+	} `json:"sessions"`
 }
