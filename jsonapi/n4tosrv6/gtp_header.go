@@ -5,10 +5,14 @@
 
 package n4tosrv6
 
-import "net/netip"
+import (
+	"net/netip"
+
+	"github.com/nextmn/json-api/jsonapi"
+)
 
 type GtpHeader struct {
-	OuterIpSrc netip.Addr  `json:"outer-ip-src"` // i.e. gNB ip
-	Teid       uint32      `json:"teid"`
-	InnerIpSrc *netip.Addr `json:"inner-ip-src,omitempty"` // i.e. UE ip; only useful for uplink when multiple PDU Sessions are aggregated on a single TEID
+	OuterIpSrc []netip.Prefix `json:"outer-ip-src"` // i.e. list of gNB IPs, or 0/0
+	FTeid      jsonapi.Fteid  `json:"fteid"`
+	InnerIpSrc *netip.Addr    `json:"inner-ip-src,omitempty"` // i.e. UE ip; only useful for uplink when multiple PDU Sessions are aggregated on a single TEID
 }
