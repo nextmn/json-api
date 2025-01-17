@@ -5,6 +5,9 @@
 
 package n4tosrv6
 
+import "net/netip"
+
 type Action struct {
-	SRH SRH `json:"srh"`
+	SRH        SRH         `json:"srh"`
+	SourceGtp4 *netip.Addr `json:"src-gtp4,omitempty"`
 }
