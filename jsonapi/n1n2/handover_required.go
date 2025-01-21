@@ -16,7 +16,8 @@ type HandoverRequired struct {
 	Cp        jsonapi.ControlURI `json:"cp"`
 
 	// Handover Required content
-	Ue        jsonapi.ControlURI `json:"ue"`
-	Sessions  []Session          `json:"sessions"` // list of all pdu sessions of the UE to be moved
-	TargetgNB jsonapi.ControlURI `json:"target-gnb"`
+	Ue                 jsonapi.ControlURI `json:"ue"`
+	Sessions           []Session          `json:"sessions"` // list of all pdu sessions of the UE to be moved
+	TargetgNB          jsonapi.ControlURI `json:"target-gnb"`
+	IndirectForwarding bool               `json:"indirect-forwarding"`
 }
