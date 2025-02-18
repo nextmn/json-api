@@ -36,7 +36,6 @@ func TestMessageWithError(t *testing.T) {
 	if err != nil {
 		t.Errorf("Could not marshal MessageWithError to json")
 	}
-	fmt.Println(string(j1))
 
 	if !bytes.Equal(j1, j2) {
 		t.Errorf("Result of marshaling MessageWithError to json is incorrect")

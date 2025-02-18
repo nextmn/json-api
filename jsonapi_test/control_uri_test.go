@@ -6,6 +6,7 @@
 package jsonapi_test
 
 import (
+	"net/url"
 	"testing"
 
 	"github.com/nextmn/json-api/jsonapi"
@@ -30,5 +31,11 @@ func TestControlURI(t *testing.T) {
 	}
 	if err := u.UnmarshalText([]byte("http://[fd00::1]:8000")); err != nil {
 		t.Errorf("URI with an IPv6 address and a port should be accepted")
+	}
+
+	u.UnmarshalText([]byte("http://example.org"))
+	cmp, _ := url.ParseRequestURI("http://example.org")
+	if u.URL != *cmp {
+		t.Errorf("Valid ControlURI should be unmarshaled the same as ParseRequestURI does")
 	}
 }

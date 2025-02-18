@@ -16,19 +16,30 @@ type ControlURI struct {
 }
 
 func (u *ControlURI) UnmarshalText(text []byte) error {
-	if len(text) == 0 {
-		return fmt.Errorf("Control URI should not be empty.")
-	}
-	if text[len(text)-1] == '/' {
-		return fmt.Errorf("Control URI should not contains trailing slash.")
-	}
-	if a, err := url.ParseRequestURI(string(text[:])); err != nil {
+	if a, err := ParseControlURI(string(text[:])); err != nil {
 		return err
 	} else {
-		u.URL = *a
+		*u = *a
 	}
 	return nil
 }
+
 func (u ControlURI) MarshalJSON() ([]byte, error) {
 	return json.Marshal(u.String())
+}
+
+func ParseControlURI(text string) (*ControlURI, error) {
+	if len(text) == 0 {
+		return nil, fmt.Errorf("Control URI should not be empty.")
+	}
+	if text[len(text)-1] == '/' {
+		return nil, fmt.Errorf("Control URI should not contains trailing slash.")
+	}
+	if u, err := url.ParseRequestURI(text); err != nil {
+		return nil, err
+	} else {
+		return &ControlURI{
+			URL: *u,
+		}, nil
+	}
 }
