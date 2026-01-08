@@ -1,9 +1,9 @@
 module github.com/nextmn/json-api
 
-go 1.22
+go 1.25.5
 
 require (
-	github.com/gofrs/uuid v4.4.0+incompatible
+	github.com/gofrs/uuid/v5 v5.4.0
 	github.com/sirupsen/logrus v1.9.3
 )
 

@@ -30,7 +30,7 @@ func (u *MessageWithError) UnmarshalJSON(data []byte) error {
 	if !ok {
 		return fmt.Errorf("Missing key `error` while unmarshaling MessageWithError")
 	}
-	u.Error = fmt.Errorf(e)
+	u.Error = fmt.Errorf("%s", e)
 	return nil
 }
 

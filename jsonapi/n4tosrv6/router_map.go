@@ -5,6 +5,6 @@
 
 package n4tosrv6
 
-import "github.com/gofrs/uuid"
+import "github.com/gofrs/uuid/v5"
 
 type RouterMap map[uuid.UUID]Router
