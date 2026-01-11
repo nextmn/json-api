@@ -8,7 +8,7 @@ package jsonapi_test
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"testing"
 
 	"github.com/nextmn/json-api/jsonapi"
@@ -16,12 +16,13 @@ import (
 
 func TestMessageWithError(t *testing.T) {
 	const (
-		msg_test = "Example of message"
-		err_test = "Example of error"
+		msg_test     = "Example of message"
+		err_test_msg = "example of error"
 	)
+	err_test := errors.New(err_test_msg)
 	j2, err := json.Marshal(map[string]string{
 		"message": msg_test,
-		"error":   err_test,
+		"error":   err_test_msg,
 	})
 	if err != nil {
 		t.Fatalf("Could not marshal map to json")
@@ -29,12 +30,12 @@ func TestMessageWithError(t *testing.T) {
 
 	u := &jsonapi.MessageWithError{
 		Message: msg_test,
-		Error:   fmt.Errorf(err_test),
+		Error:   err_test,
 	}
 
 	j1, err := json.Marshal(u)
 	if err != nil {
-		t.Errorf("Could not marshal MessageWithError to json")
+		t.Error("Could not marshal MessageWithError to json")
 	}
 
 	if !bytes.Equal(j1, j2) {
@@ -42,7 +43,7 @@ func TestMessageWithError(t *testing.T) {
 	}
 
 	unm := &jsonapi.MessageWithError{}
-	if err := unm.UnmarshalJSON(j1); err == nil {
-		t.Errorf("Unmarshal of MessageWithError failed")
+	if err := unm.UnmarshalJSON(j1); err != nil {
+		t.Errorf("Unmarshal of MessageWithError failed: %s", err)
 	}
 }

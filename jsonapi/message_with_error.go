@@ -17,18 +17,18 @@ type MessageWithError struct {
 
 func (u *MessageWithError) UnmarshalJSON(data []byte) error {
 	a := make(map[string]string)
-	err := json.Unmarshal(data, a)
+	err := json.Unmarshal(data, &a)
 	if err != nil {
 		return err
 	}
 	msg, ok := a["message"]
 	if !ok {
-		return fmt.Errorf("Missing key `message` while unmarshaling MessageWithError")
+		return fmt.Errorf("missing key `message` while unmarshaling MessageWithError")
 	}
 	u.Message = msg
 	e, ok := a["error"]
 	if !ok {
-		return fmt.Errorf("Missing key `error` while unmarshaling MessageWithError")
+		return fmt.Errorf("missing key `error` while unmarshaling MessageWithError")
 	}
 	u.Error = fmt.Errorf("%s", e)
 	return nil

@@ -30,10 +30,10 @@ func (u ControlURI) MarshalJSON() ([]byte, error) {
 
 func ParseControlURI(text string) (*ControlURI, error) {
 	if len(text) == 0 {
-		return nil, fmt.Errorf("Control URI should not be empty.")
+		return nil, fmt.Errorf("control URI should not be empty")
 	}
 	if text[len(text)-1] == '/' {
-		return nil, fmt.Errorf("Control URI should not contains trailing slash.")
+		return nil, fmt.Errorf("control URI should not contains trailing slash")
 	}
 	if u, err := url.ParseRequestURI(text); err != nil {
 		return nil, err

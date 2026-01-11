@@ -65,7 +65,7 @@ func (h *Healthcheck) Run(ctx context.Context) error {
 		return err
 	}
 	if !status.Ready {
-		err := fmt.Errorf("Server is not ready")
+		err := fmt.Errorf("server is not ready")
 		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("Server is not ready")
 		return err
 	}

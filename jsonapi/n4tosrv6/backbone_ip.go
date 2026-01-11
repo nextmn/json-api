@@ -19,7 +19,7 @@ func (b *BackboneIP) UnmarshalText(text []byte) error {
 		return err
 	}
 	if !b.Addr.Is6() {
-		return fmt.Errorf("Backbone IP must be an IPv6 address")
+		return fmt.Errorf("backbone IP must be an IPv6 address")
 	}
 	return nil
 }
