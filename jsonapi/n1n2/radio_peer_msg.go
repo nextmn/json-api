@@ -7,6 +7,7 @@ package n1n2
 
 import (
 	"net/netip"
+	"time"
 
 	"github.com/nextmn/json-api/jsonapi"
 )
@@ -15,4 +16,8 @@ import (
 type RadioPeerMsg struct {
 	Control jsonapi.ControlURI `json:"control"`
 	Data    netip.AddrPort     `json:"data"`
+
+	// The following fields are configured by the UE on the gNB
+	ControlOneWayDelay time.Duration `json:"control-one-way-delay",omitempty`
+	DataOneWayDelay    time.Duration `json:"data-one-way-delay",omitempty`
 }
