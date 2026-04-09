@@ -7,12 +7,14 @@ package jsonapi
 
 import "net/netip"
 
+type TEID uint32
+
 type Fteid struct {
 	Addr netip.Addr `json:"addr"`
-	Teid uint32     `json:"teid"`
+	Teid TEID       `json:"teid"`
 }
 
-func NewFteid(addr netip.Addr, teid uint32) *Fteid {
+func NewFteid(addr netip.Addr, teid TEID) *Fteid {
 	return &Fteid{
 		Addr: addr,
 		Teid: teid,
