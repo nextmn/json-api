@@ -28,6 +28,10 @@ func (u ControlURI) MarshalJSON() ([]byte, error) {
 	return json.Marshal(u.String())
 }
 
+func (u ControlURI) String() string {
+	return u.URL.String()
+}
+
 func ParseControlURI(text string) (*ControlURI, error) {
 	if len(text) == 0 {
 		return nil, fmt.Errorf("control URI should not be empty")
