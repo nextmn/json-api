@@ -9,11 +9,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"time"
-
-	"github.com/sirupsen/logrus"
 )
 
 // Healthcheck allows to check status of the node
@@ -42,7 +41,7 @@ func (h *Healthcheck) Run(ctx context.Context) error {
 	}
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, h.url, nil)
 	if err != nil {
-		logrus.WithError(err).Error("Error while creating http get request")
+		slog.ErrorContext(ctx, "Error while creating http get request", "error", err)
 		return err
 	}
 	req.Header.Add("User-Agent", h.userAgent)
@@ -50,23 +49,35 @@ func (h *Healthcheck) Run(ctx context.Context) error {
 	req.Header.Set("Accept-Charset", "utf-8")
 	resp, err := client.Do(req)
 	if err != nil {
-		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("No http response")
+		slog.InfoContext(ctx, "No HTTP response",
+			"error", err,
+			"remote-server", h.url,
+		)
 		return err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("Http response is not 200 OK")
+		slog.InfoContext(ctx, "HTTP response is not 200 OK",
+			"error", err,
+			"remote-server", h.url,
+		)
 		return err
 	}
 	decoder := json.NewDecoder(resp.Body)
 	var status Status
 	if err := decoder.Decode(&status); err != nil {
-		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("Could not decode json response")
+		slog.InfoContext(ctx, "Could not decode JSON response",
+			"error", err,
+			"remote-server", h.url,
+		)
 		return err
 	}
 	if !status.Ready {
 		err := fmt.Errorf("server is not ready")
-		logrus.WithFields(logrus.Fields{"remote-server": h.url}).WithError(err).Info("Server is not ready")
+		slog.InfoContext(ctx, "Server is not ready",
+			"error", err,
+			"remote-server", h.url,
+		)
 		return err
 	}
 	return nil
