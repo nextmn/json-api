@@ -3,12 +3,8 @@
 // found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-package jsonapi
+package n4tosrv6
 
-type MessageBase struct {
-	Message string `json:"message"`
-}
+import "uuid"
 
-func Message(m string) MessageBase {
-	return MessageBase{Message: m}
-}
+type RouterMap map[uuid.UUID]Router

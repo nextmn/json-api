@@ -5,38 +5,14 @@
 
 package jsonapi
 
-import (
-	"encoding/json"
-	"fmt"
-)
+func (msg MessageBase) WithError(err error) MessageWithError {
+	return MessageWithError{
+		MessageBase: msg,
+		Error:       err.Error(),
+	}
+}
 
 type MessageWithError struct {
-	Message string `json:"message"`
-	Error   error  `json:"error"`
-}
-
-func (u *MessageWithError) UnmarshalJSON(data []byte) error {
-	a := make(map[string]string)
-	err := json.Unmarshal(data, &a)
-	if err != nil {
-		return err
-	}
-	msg, ok := a["message"]
-	if !ok {
-		return fmt.Errorf("missing key `message` while unmarshaling MessageWithError")
-	}
-	u.Message = msg
-	e, ok := a["error"]
-	if !ok {
-		return fmt.Errorf("missing key `error` while unmarshaling MessageWithError")
-	}
-	u.Error = fmt.Errorf("%s", e)
-	return nil
-}
-
-func (u MessageWithError) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]string{
-		"message": u.Message,
-		"error":   u.Error.Error(),
-	})
+	MessageBase
+	Error string `json:"error"`
 }

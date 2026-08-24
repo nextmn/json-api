@@ -3,8 +3,6 @@
 // found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-package n4tosrv6
+package jsonapi
 
-import "github.com/gofrs/uuid/v5"
-
-type RuleMap map[uuid.UUID]Rule
+type Dnn string

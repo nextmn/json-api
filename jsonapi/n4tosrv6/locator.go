@@ -6,7 +6,6 @@
 package n4tosrv6
 
 import (
-	"fmt"
 	"net/netip"
 )
 
@@ -19,7 +18,7 @@ func (l *Locator) UnmarshalText(text []byte) error {
 		return err
 	}
 	if !l.Addr().Is6() {
-		return fmt.Errorf("Locator must be an IPv6 prefix")
+		return ErrNotIPv6Prefix
 	}
 	return nil
 }

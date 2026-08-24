@@ -6,7 +6,6 @@
 package n4tosrv6
 
 import (
-	"fmt"
 	"net/netip"
 )
 
@@ -14,15 +13,15 @@ type Segment struct {
 	netip.Addr
 }
 
-func NewSegment(s string) (*Segment, error) {
+func ParseSegment(s string) (Segment, error) {
 	seg, err := netip.ParseAddr(s)
 	if err != nil {
-		return nil, err
+		return Segment{}, err
 	}
 	if !seg.Is6() {
-		return nil, fmt.Errorf("Segment must be an IPv6 address")
+		return Segment{}, ErrNotIPv6Address
 	}
-	return &Segment{seg}, nil
+	return Segment{seg}, nil
 }
 
 func (s *Segment) UnmarshalText(text []byte) error {
@@ -30,7 +29,7 @@ func (s *Segment) UnmarshalText(text []byte) error {
 		return err
 	}
 	if !s.Addr.Is6() {
-		return fmt.Errorf("Segment must be an IPv6 address")
+		return ErrNotIPv6Address
 	}
 	return nil
 }

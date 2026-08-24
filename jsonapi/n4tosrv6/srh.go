@@ -6,25 +6,25 @@
 package n4tosrv6
 
 import (
-	"fmt"
 	"net"
 )
 
-type SRH []*Segment
+type SRH []Segment
 
-func NewSRH(segments []string) (*SRH, error) {
-	if len(segments) < 1 {
-		return nil, fmt.Errorf("SRH should contain at least one segment")
+func ParseSRH(segmentZero string, segments ...string) (SRH, error) {
+	seg0, err := ParseSegment(segmentZero)
+	if err != nil {
+		return nil, err
 	}
-	srh := make(SRH, 0)
+	srh := SRH{seg0}
 	for _, s := range segments {
-		if seg_n, err := NewSegment(s); err == nil {
-			srh = append(srh, seg_n)
-		} else {
+		seg_n, err := ParseSegment(s)
+		if err != nil {
 			return nil, err
 		}
+		srh = append(srh, seg_n)
 	}
-	return &srh, nil
+	return srh, nil
 }
 
 func (srh SRH) AsSlice() []net.IP {

@@ -12,5 +12,5 @@ import "github.com/nextmn/json-api/jsonapi"
 type PduSessionEstabReqMsg struct {
 	Ue  jsonapi.ControlURI `json:"ue"`
 	Gnb jsonapi.ControlURI `json:"gnb"`
-	Dnn string             `json:"dnn"`
+	Dnn jsonapi.Dnn        `json:"dnn"`
 }

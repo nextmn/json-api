@@ -6,7 +6,6 @@
 package n4tosrv6
 
 import (
-	"fmt"
 	"net/netip"
 )
 
@@ -14,15 +13,15 @@ type NextHop struct {
 	netip.Addr
 }
 
-func NewNextHop(nh string) (*NextHop, error) {
+func ParseNextHop(nh string) (NextHop, error) {
 	h, err := netip.ParseAddr(nh)
 	if err != nil {
-		return nil, err
+		return NextHop{}, err
 	}
 	if !h.Is6() {
-		return nil, fmt.Errorf("NextHop must be an IPv6 address")
+		return NextHop{}, ErrNotIPv6Address
 	}
-	return &NextHop{h}, nil
+	return NextHop{h}, nil
 }
 
 func (nh *NextHop) UnmarshalText(text []byte) error {
@@ -30,7 +29,7 @@ func (nh *NextHop) UnmarshalText(text []byte) error {
 		return err
 	}
 	if !nh.Addr.Is6() {
-		return fmt.Errorf("NextHop must be an IPv6 address")
+		return ErrNotIPv6Address
 	}
 	return nil
 }

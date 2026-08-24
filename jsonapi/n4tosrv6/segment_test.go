@@ -32,7 +32,7 @@ func TestSegment(t *testing.T) {
 }
 
 func TestNewSegment(t *testing.T) {
-	if seg0, err := n4tosrv6.NewSegment("::"); err == nil {
+	if seg0, err := n4tosrv6.ParseSegment("::"); err == nil {
 		if seg0J, err := json.Marshal(seg0); err == nil {
 			if string(seg0J) != "\"::\"" {
 				t.Errorf("Marshal of '::' is wrong: %s", seg0J)
@@ -43,7 +43,7 @@ func TestNewSegment(t *testing.T) {
 	} else {
 		t.Errorf("Could not create segment '::'")
 	}
-	if seg1, err := n4tosrv6.NewSegment("fd00::"); err == nil {
+	if seg1, err := n4tosrv6.ParseSegment("fd00::"); err == nil {
 		if seg1J, err := json.Marshal(seg1); err == nil {
 			if string(seg1J) != "\"fd00::\"" {
 				t.Errorf("Marshal of 'fd00::' is wrong: %s", seg1J)
@@ -54,16 +54,16 @@ func TestNewSegment(t *testing.T) {
 	} else {
 		t.Errorf("Could not create segment 'fd00::'")
 	}
-	if _, err := n4tosrv6.NewSegment("10.0.0.0"); err == nil {
-		t.Errorf("NewSegment should error with string '10.0.0.0'")
+	if _, err := n4tosrv6.ParseSegment("10.0.0.0"); err == nil {
+		t.Errorf("ParseSegment should error with string '10.0.0.0'")
 	}
-	if _, err := n4tosrv6.NewSegment(""); err == nil {
-		t.Errorf("NewSegment should error with empty string")
+	if _, err := n4tosrv6.ParseSegment(""); err == nil {
+		t.Errorf("ParseSegment should error with empty string")
 	}
-	if _, err := n4tosrv6.NewSegment("fd00::/128"); err == nil {
-		t.Errorf("NewSegment should error with IPv6 Prefix")
+	if _, err := n4tosrv6.ParseSegment("fd00::/128"); err == nil {
+		t.Errorf("ParseSegment should error with IPv6 Prefix")
 	}
-	if _, err := n4tosrv6.NewSegment("10.0.0.0/32"); err == nil {
-		t.Errorf("NewSegment should error with IPv4 Prefix")
+	if _, err := n4tosrv6.ParseSegment("10.0.0.0/32"); err == nil {
+		t.Errorf("ParseSegment should error with IPv4 Prefix")
 	}
 }

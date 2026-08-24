@@ -7,7 +7,7 @@ package healthcheck
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/v2"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -63,9 +63,8 @@ func (h *Healthcheck) Run(ctx context.Context) error {
 		)
 		return err
 	}
-	decoder := json.NewDecoder(resp.Body)
 	var status Status
-	if err := decoder.Decode(&status); err != nil {
+	if err := json.UnmarshalRead(resp.Body, &status); err != nil {
 		slog.InfoContext(ctx, "Could not decode JSON response",
 			"error", err,
 			"remote-server", h.url,

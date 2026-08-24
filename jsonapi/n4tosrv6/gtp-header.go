@@ -5,6 +5,8 @@
 
 package n4tosrv6
 
-import "github.com/gofrs/uuid/v5"
-
-type RouterMap map[uuid.UUID]Router
+type GtpHeader struct {
+	Ip  IpLayer  `json:"ip,omitzero"`  // Outer IP layer
+	Udp UdpLayer `json:"udp,omitzero"` // UDP layer
+	Gtp GtpLayer `json:"gtp,omitzero"` // GTP layer
+}

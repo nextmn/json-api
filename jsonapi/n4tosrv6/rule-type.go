@@ -3,12 +3,12 @@
 // found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-package jsonapi
+package n4tosrv6
 
-type MessageBase struct {
-	Message string `json:"message"`
-}
+type RuleType int
 
-func Message(m string) MessageBase {
-	return MessageBase{Message: m}
-}
+const (
+	RuleTypeUplink RuleType = iota
+	RuleTypeDownlink
+	RuleTypeDownlinkForwarding
+)

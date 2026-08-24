@@ -5,7 +5,12 @@
 
 package n4tosrv6
 
+// Match represents a set of rules to be matched.
+// When a Match member is zero, we consider it always match.
+// For example, if there is no GTP encapsulation, we consider only the "IP" layer field.
 type Match struct {
-	Header  *GtpHeader `json:"gtp,omitempty"`
-	Payload *Payload   `json:"payload,omitempty"` // if empty, the rule is considered "default"
+	Ip      IpLayer  `json:"ip,omitzero"`      // Outer IP layer
+	Udp     UdpLayer `json:"udp,omitzero"`     // UDP layer
+	Gtp     GtpLayer `json:"gtp,omitzero"`     // GTP layer
+	Payload IpLayer  `json:"payload,omitzero"` // Inner IP layer
 }
