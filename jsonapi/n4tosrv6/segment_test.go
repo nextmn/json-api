@@ -6,7 +6,7 @@
 package n4tosrv6_test
 
 import (
-	"encoding/json"
+	"encoding/json/v2"
 	"testing"
 
 	"github.com/nextmn/json-api/jsonapi/n4tosrv6"
