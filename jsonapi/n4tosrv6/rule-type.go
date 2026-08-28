@@ -11,7 +11,7 @@ var (
 	ErrInvalidRuleType = errors.New("invalid rule type")
 )
 
-//go:generate stringer -type RuleType -linecomment -output rule-type_string.go
+//go:generate go tool stringer -type RuleType -linecomment -output rule-type_string.go
 
 type RuleType int
 
