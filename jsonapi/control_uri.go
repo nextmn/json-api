@@ -6,8 +6,6 @@
 package jsonapi
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/url"
 )
 
@@ -24,20 +22,16 @@ func (u *ControlURI) UnmarshalText(text []byte) error {
 	return nil
 }
 
-func (u ControlURI) MarshalJSON() ([]byte, error) {
-	return json.Marshal(u.String())
-}
-
 func (u ControlURI) String() string {
 	return u.URL.String()
 }
 
 func ParseControlURI(text string) (*ControlURI, error) {
 	if len(text) == 0 {
-		return nil, fmt.Errorf("control URI should not be empty")
+		return nil, ErrEmptyURI
 	}
 	if text[len(text)-1] == '/' {
-		return nil, fmt.Errorf("control URI should not contains trailing slash")
+		return nil, ErrTrailingSlashURI
 	}
 	if u, err := url.ParseRequestURI(text); err != nil {
 		return nil, err

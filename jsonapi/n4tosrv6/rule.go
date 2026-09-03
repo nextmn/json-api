@@ -7,7 +7,7 @@ package n4tosrv6
 
 type Rule struct {
 	Enabled bool
-	Type    string // uplink or downlink
+	Type    RuleType
 	Match   Match
 	Action  Action
 }

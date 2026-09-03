@@ -12,12 +12,12 @@ import (
 )
 
 type Session struct {
-	Addr          netip.Addr     `json:"ue-addr"`
-	Dnn           string         `json:"dnn"`
-	UplinkFteid   *jsonapi.Fteid `json:"uplink-fteid,omitempty"`
-	DownlinkFteid *jsonapi.Fteid `json:"downlink-fteid,omitempty"`
+	Addr          netip.Addr    `json:"ue-addr"`
+	Dnn           jsonapi.Dnn   `json:"dnn"`
+	UplinkFteid   jsonapi.Fteid `json:"uplink-fteid,omitzero"`
+	DownlinkFteid jsonapi.Fteid `json:"downlink-fteid,omitzero"`
 
 	// when ForwardDownlinkFteid is not empty,
 	// PDUs received on DownlinkFteid must be forwarded to it
-	ForwardDownlinkFteid *jsonapi.Fteid `json:"forward-fteid,omitempty"`
+	ForwardDownlinkFteid jsonapi.Fteid `json:"forward-fteid,omitzero"`
 }

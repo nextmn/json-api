@@ -5,8 +5,12 @@
 
 package n4tosrv6
 
-import "net/netip"
+import "github.com/nextmn/json-api/jsonapi"
 
-type Payload struct {
-	Dst netip.Addr `json:"destination-ip"`
+type GtpLayer struct {
+	Teid jsonapi.TEID `json:"udp.teid,omitzero"` // TEID
+}
+
+func (l GtpLayer) Match(Teid jsonapi.TEID) bool {
+	return l.Teid == 0 || Teid == 0 || (Teid == l.Teid)
 }

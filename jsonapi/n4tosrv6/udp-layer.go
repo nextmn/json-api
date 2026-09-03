@@ -1,0 +1,21 @@
+// Copyright Louis Royer and the NextMN contributors. All rights reserved.
+// Use of this source code is governed by a MIT-style license that can be
+// found in the LICENSE file.
+// SPDX-License-Identifier: MIT
+
+package n4tosrv6
+
+type UdpLayer struct {
+	Src uint16 `json:"src,omitzero"`
+	Dst uint16 `json:"dst,omitzero"`
+}
+
+func (l UdpLayer) Match(Src, Dst uint16) bool {
+	if Src != 0 && l.Src != 0 && Src != l.Src {
+		return false
+	}
+	if Dst != 0 && l.Dst != 0 && Dst != l.Dst {
+		return false
+	}
+	return true
+}

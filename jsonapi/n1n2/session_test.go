@@ -18,11 +18,11 @@ func TestSession(t *testing.T) {
 		t.Errorf("Session with only uplink FTeid could not be unmarshaled")
 	}
 
-	if s.DownlinkFteid != nil {
-		t.Errorf("Downlink Fteid was not defined but is not nil")
+	if s.DownlinkFteid.IsValid() {
+		t.Errorf("Downlink Fteid was not defined but is valid")
 	}
-	if s.UplinkFteid == nil {
-		t.Errorf("Uplink Fteid was defined but is nil")
+	if !s.UplinkFteid.IsValid() {
+		t.Errorf("Uplink Fteid was defined but is not valid")
 	}
 
 }

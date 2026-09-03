@@ -6,7 +6,6 @@
 package n4tosrv6
 
 import (
-	"fmt"
 	"net/netip"
 )
 
@@ -19,7 +18,7 @@ func (b *BackboneIP) UnmarshalText(text []byte) error {
 		return err
 	}
 	if !b.Addr.Is6() {
-		return fmt.Errorf("backbone IP must be an IPv6 address")
+		return ErrNotIPv6Address
 	}
 	return nil
 }

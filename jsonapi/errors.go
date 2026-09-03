@@ -5,10 +5,9 @@
 
 package jsonapi
 
-type MessageBase struct {
-	Message string `json:"message"`
-}
+import "errors"
 
-func Message(m string) MessageBase {
-	return MessageBase{Message: m}
-}
+var (
+	ErrEmptyURI         = errors.New("control URI should not be empty")
+	ErrTrailingSlashURI = errors.New("control URI should not contains trailing slash")
+)

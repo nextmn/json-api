@@ -1,5 +1,11 @@
 module github.com/nextmn/json-api
 
-go 1.26.6
+go 1.27.1
 
-require github.com/gofrs/uuid/v5 v5.5.1
+tool golang.org/x/tools/cmd/stringer
+
+require (
+	golang.org/x/mod v0.39.0 // indirect
+	golang.org/x/sync v0.22.0 // indirect
+	golang.org/x/tools v0.49.0 // indirect
+)

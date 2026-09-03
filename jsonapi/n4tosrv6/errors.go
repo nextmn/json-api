@@ -3,12 +3,13 @@
 // found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-package jsonapi
+package n4tosrv6
 
-type MessageBase struct {
-	Message string `json:"message"`
-}
+import (
+	"errors"
+)
 
-func Message(m string) MessageBase {
-	return MessageBase{Message: m}
-}
+var (
+	ErrNotIPv6Address = errors.New("not an IPv6 address")
+	ErrNotIPv6Prefix  = errors.New("not an IPv6 prefix")
+)
