@@ -1,6 +1,6 @@
 module github.com/nextmn/json-api
 
-go 1.27.0
+go 1.27.1
 
 tool golang.org/x/tools/cmd/stringer
 
